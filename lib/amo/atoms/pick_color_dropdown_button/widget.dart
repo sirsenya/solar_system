@@ -1,51 +1,44 @@
 import 'package:flutter/material.dart';
 
-class PickColorDropdownButton extends StatefulWidget {
-  const PickColorDropdownButton({Key? key}) : super(key: key);
+import '../../../db.dart';
 
-  @override
-  State<PickColorDropdownButton> createState() =>
-      _PickColorDropdownButtonState();
-}
+class PickColorDropdownButton extends StatelessWidget {
+  final String value;
+  final void Function(dynamic) changePlanetColor;
 
-class _PickColorDropdownButtonState extends State<PickColorDropdownButton> {
+  const PickColorDropdownButton({
+    Key? key,
+    required this.value,
+    required this.changePlanetColor,
+  }) : super(key: key);
 
-  String? _value;
+  /// create dropdown color options
+  List<DropdownMenuItem> dropdownItems() {
+    List<DropdownMenuItem> dropdownItems = [];
+    for (int i = 0; i < colors.length; i++) {
+      String value = colors.keys.elementAt(i);
+      dropdownItems.add(
+        DropdownMenuItem(
+          value: value,
+          child: Text(value),
+        ),
+      );
+    }
+    return dropdownItems;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton(
-        value: _value,
-        
-        items: [
-          DropdownMenuItem(
-            value: "red",
-            child: Text("Красный"),
-            onTap: ()=> setState(() {
-              _value = "red";
-            }),
-          ),
-          DropdownMenuItem(
-            value: "green",
-            child: Text("Зелёный"),
-          ),
-          DropdownMenuItem(
-            value: "yellow",
-            child: Text("Жёлтый"),
-          ),
-          DropdownMenuItem(
-            value: "blue",
-            child: Text("Голубой"),
-          ),
-          DropdownMenuItem(
-            value: "brown",
-            child: Text("Коричневый"),
-          ),
-          DropdownMenuItem(
-            value: "orange",
-            child: Text("Оранжевый"),
-          ),
-        ],
-        onChanged: (_) {});
+    return Container(
+      padding: EdgeInsets.all(10),
+      color: Colors.black87,
+      child: DropdownButton(
+          dropdownColor: Colors.black87,
+          focusColor: Colors.white24,
+          style: TextStyle(color: Colors.white, fontSize: 20),
+          value: value,
+          items: dropdownItems(),
+          onChanged: changePlanetColor),
+    );
   }
 }

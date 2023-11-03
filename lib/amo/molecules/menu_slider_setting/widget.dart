@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:solar_system/amo/atoms/menu_title/widget.dart';
 
-class MenuSliderSetting extends StatefulWidget {
+/// A slider to change speed, size and orbit of a planet
+
+class MenuSliderSetting extends StatelessWidget {
   final String title;
   final double value;
   final Function(double value) changeValue;
@@ -14,22 +16,16 @@ class MenuSliderSetting extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<MenuSliderSetting> createState() => _MenuSliderSettingState();
-}
-
-class _MenuSliderSettingState extends State<MenuSliderSetting> {
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MenuTitle(title: widget.title),
+        MenuTitle(title: title),
         Slider(
-            value: widget.value,
+            value: value,
            // divisions: 9,
             min: 1,
             max: 10,
-            onChanged: widget.changeValue),
+            onChanged: changeValue),
       ],
     );
   }
