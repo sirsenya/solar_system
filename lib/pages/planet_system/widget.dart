@@ -3,15 +3,16 @@ import 'package:solar_system/bloc/planets/planets_bloc.dart';
 import '../menu/widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PlanetSystem extends StatefulWidget {
-  const PlanetSystem({super.key});
+class PlanetSystemScreen extends StatefulWidget {
+  const PlanetSystemScreen({super.key});
 
 
   @override
-  State<PlanetSystem> createState() => _PlanetSystemState();
+  State<PlanetSystemScreen> createState() => _PlanetSystemScreenState();
 }
+///Starting page of the app - shows existing planets.
 
-class _PlanetSystemState extends State<PlanetSystem> {
+class _PlanetSystemScreenState extends State<PlanetSystemScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,21 +28,28 @@ class _PlanetSystemState extends State<PlanetSystem> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           alignment: Alignment.center,
+
+
+
           child: BlocBuilder<PlanetsBloc, PlanetsLoadedState>(
               builder: (context, state) {
+                /// Planets and the star from the Bloc
             return Stack(
               children: state.astronomicalObjects,
             );
           }),
         ),
       ),
+
+      /// Go to the MenuScreen where a user can add new planets
+
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => const MenuScreen(),
           ),
         ),
-        tooltip: 'Increment',
+        tooltip: 'Меню',
         child: const Icon(Icons.arrow_forward_ios),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
